@@ -1,12 +1,61 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { Link } from 'react-scroll';
+// 1. package.json
+{
+  "name": "ux-cv",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^10.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-scroll": "^1.8.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "tailwindcss": "^3.0.0",
+    "vite": "^5.0.0"
+  }
+}
+
+// 2. tailwind.config.js
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+
+// 3. main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import Portfolio from "./Portfolio";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Portfolio />
+  </React.StrictMode>
+);
+
+// 4. index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// 5. Portfolio.jsx
+import { motion } from "framer-motion";
+import { Link } from "react-scroll";
 
 const sections = [
-  { id: 'about', title: 'Über mich' },
-  { id: 'portfolio', title: 'Portfolio' },
-  { id: 'experience', title: 'Erfahrung' },
-  { id: 'contact', title: 'Kontakt' },
+  { id: "about", title: "Über mich" },
+  { id: "portfolio", title: "Portfolio" },
+  { id: "experience", title: "Erfahrung" },
+  { id: "contact", title: "Kontakt" },
 ];
 
 export default function Portfolio() {
@@ -24,21 +73,11 @@ export default function Portfolio() {
       </header>
       
       <main className="pt-20">
-        <Section id="about" title="Über mich">
-          <p>Ich bin eine UX-Designerin mit Leidenschaft für intuitive und ansprechende Nutzererlebnisse.</p>
-        </Section>
-        
-        <Section id="portfolio" title="Portfolio">
-          <p>Hier präsentiere ich einige meiner erfolgreich umgesetzten Projekte.</p>
-        </Section>
-
-        <Section id="experience" title="Erfahrung">
-          <p>Meine beruflichen Stationen und Erfolge als UX-Expertin.</p>
-        </Section>
-
-        <Section id="contact" title="Kontakt">
-          <p>Hier kannst du mich erreichen: E-Mail oder LinkedIn.</p>
-        </Section>
+        {sections.map((section) => (
+          <Section key={section.id} id={section.id} title={section.title}>
+            <p>Hier kommt der Inhalt für {section.title}.</p>
+          </Section>
+        ))}
       </main>
     </div>
   );
